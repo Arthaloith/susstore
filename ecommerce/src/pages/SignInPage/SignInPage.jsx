@@ -1,58 +1,129 @@
-import React from 'react'
-import { WrapperContainerLeft, WrapperTextLight } from './style'
+import React, { useEffect, useState } from 'react'
+import { WrapperContainerLeft, WrapperContainerRight, WrapperTextLight } from './style'
 import InputForm from '../../components/InputForm/InputForm'
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent'
 import { EyeFilled, EyeInvisibleFilled } from '@ant-design/icons'
+import { useNavigate } from 'react-router-dom'
+import { Image } from 'antd'
+import Loading from '../../components/LoadingComponent/Loading'
+import { useMutationHooks } from '../../hooks/useMutationHook'
+import * as UserService from '../../services/UserService'
+import imageLogo from '../../assets/logo-login.png'
+import { useDispatch } from 'react-redux'
+import { jwtDecode } from 'jwt-decode';
+import { updateUser } from '../../redux/slides/userSlide'
+
 
 const SignInPage = () => {
-  const [isShowPassword, setIsShowPassword] = React.useState(false)
+  const [isShowPassword, setIsShowPassword] = useState(false)
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate()
+
+  const mutation = useMutationHooks(
+    data => UserService.loginUser(data)
+  )
+  const { data, isLoading, isSuccess } = mutation
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate('/')
+      localStorage.setItem('access_token', JSON.stringify(data?.access_token))
+      if (data?.access_token) {
+        const decoded = jwtDecode(data?.access_token)
+        if (decoded?.id) {
+          handleGetDetailsUser(decoded?.id, data?.access_token)
+        }
+      }
+    }
+  }, [isSuccess])
+
+  const handleGetDetailsUser = async (id, token) => {
+    const res = await UserService.getDetailsUser(id, token)
+    dispatch(updateUser({ ...res?.data, access_token: token }))
+  }
+
+  console.log('mutation', mutation)
+
+  const handleNavigateSignUp = () => {
+    navigate('/sign-up')
+  }
+
+  const handleOnchangeEmail = (value) => {
+    setEmail(value)
+  }
+
+  const handleOnchangePassword = (value) => {
+    setPassword(value)
+  }
+
+  const handleSignIn = () => {
+    mutation.mutate({
+      email,
+      password
+    })
+  }
+
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'rgba(0, 0, 0, 0.53)', height: '100vh'}}>
-      <div style={{ width: '800px', height: '500px', borderRadius: '6px', background: '#fff'}}>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0, 0, 0, 0.53)', height: '100vh' }}>
+      <div style={{ width: '800px', height: '445px', borderRadius: '6px', background: '#fff', display: 'flex' }}>
         <WrapperContainerLeft>
-            <h1>Welcome!</h1>
-            <p>Log in to use more functions of our service.</p>
-            <InputForm style={{ marginBottom: '10px' }} placeholder="email" />
-            <div style={{ position: 'relative' }}>
-              <span
-                style={{
-                  zIndex: 10,
-                  position: 'absolute',
-                  top: '4px',
-                  bottom: '8px',
-                }}
-              >{
-                  isShowPassword ? (
-                    <EyeFilled />
-                  ) : (
-                    <EyeInvisibleFilled />
-                  )
+          <h1>Xin chào</h1>
+          <p>Đăng nhập vào tạo tài khoản</p>
+          <InputForm style={{ marginBottom: '10px' }} placeholder="abc@gmail.com" value={email} onChange={handleOnchangeEmail} />
+          <div style={{ position: 'relative' }}>
+            <span
+              onClick={() => setIsShowPassword(!isShowPassword)}
+              style={{
+                zIndex: 10,
+                position: 'absolute',
+                top: '4px',
+                right: '8px'
+              }}
+            >{
+                isShowPassword ? (
+                  <EyeFilled />
+                ) : (
+                  <EyeInvisibleFilled />
+                )
               }
-              </span>
-              <InputForm placeholder="password" type={isShowPassword ? 'text' : 'password'}/>
-            </div>
+            </span>
+            <InputForm
+              placeholder="password"
+              type={isShowPassword ? "text" : "password"}
+              value={password}
+              onChange={handleOnchangePassword}
+            />
+          </div>
+          {data?.status === 'ERR' && <span style={{ color: 'red' }}>{data?.message}</span>}
+          <Loading isLoading={isLoading}>
             <ButtonComponent
-                size={40}
-                styleButton={{
-                  background: 'rgb(255, 57, 69)',
-                  height: '48px',
-                  width: '100%',
-                  border: 'none',
-                  borderRadius: '4px',
-                  margin: '26px 0 10px'
-                }}
-                textButton={'Sign In'}
-                styleTextButton={{ color: 'white', fontSize: '15px', fontWeight: '700' }}
+              disabled={!email.length || !password.length}
+              onClick={handleSignIn}
+              size={40}
+              styleButton={{
+                background: 'rgb(255, 57, 69)',
+                height: '48px',
+                width: '100%',
+                border: 'none',
+                borderRadius: '4px',
+                margin: '26px 0 10px'
+              }}
+              textButton={'Đăng nhập'}
+              styleTextButton={{ color: '#fff', fontSize: '15px', fontWeight: '700' }}
             ></ButtonComponent>
-            <p><WrapperTextLight>Forgot password?</WrapperTextLight></p>
-            <p>Don't have an account yet? <WrapperTextLight>Sign up</WrapperTextLight></p>
+          </Loading>
+          <p><WrapperTextLight>Quên mật khẩu?</WrapperTextLight></p>
+          <p>Chưa có tài khoản? <WrapperTextLight onClick={handleNavigateSignUp}> Tạo tài khoản</WrapperTextLight></p>
         </WrapperContainerLeft>
-        {/* <WrapperContainerRight>
-          <Image src={imageLogo} preview={false} alt="image-logo" height="203px" width="203px"/>
-          <h4>Shopt at LDDT</h4>
-        </WrapperContainerRight> */}
+        <WrapperContainerRight>
+          <Image src={imageLogo} preview={false} alt="iamge-logo" height="203px" width="203px" />
+          <h4>Mua sắm tại LTTD</h4>
+        </WrapperContainerRight>
       </div>
-    </div>
+    </div >
   )
 }
 
