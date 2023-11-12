@@ -4,6 +4,8 @@ const initialState = {
     name: '',
     email: '',
     access_token: '',
+    exp: '',
+    id: ''
 }
 
 export const userSlide = createSlice({
@@ -15,6 +17,8 @@ export const userSlide = createSlice({
             state.name = name || email;
             state.email = email;
             state.access_token = access_token;
+            state.exp = exp;
+            state.id = id
         },
     },
 })

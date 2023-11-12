@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { WrapperContainerLeft, WrapperContainerRight, WrapperTextLight } from './style'
 import InputForm from '../../components/InputForm/InputForm'
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent'
 import { EyeFilled, EyeInvisibleFilled } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
-import { Image } from 'antd'
-import Loading from '../../components/LoadingComponent/Loading'
+import { useState } from 'react'
 import { useMutationHooks } from '../../hooks/useMutationHook'
 import * as UserService from '../../services/UserService'
+import Loading from '../../components/LoadingComponent/Loading'
+import { Image } from 'antd'
 import imageLogo from '../../assets/logo-login.png'
 import { useDispatch } from 'react-redux'
-import { jwtDecode } from 'jwt-decode';
 import { updateUser } from '../../redux/slides/userSlide'
-
+import {jwtDecode} from 'jwt-decode'
 
 const SignInPage = () => {
   const [isShowPassword, setIsShowPassword] = useState(false)

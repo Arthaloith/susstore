@@ -5,13 +5,12 @@ import ButtonComponent from '../../components/ButtonComponent/ButtonComponent'
 import { EyeFilled, EyeInvisibleFilled } from '@ant-design/icons'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Image } from 'antd'
-import Loading from '../../components/LoadingComponent/Loading'
 import { useMutationHooks } from '../../hooks/useMutationHook'
 import * as UserService from '../../services/UserService'
+import Loading from '../../components/LoadingComponent/Loading'
+import { Image } from 'antd'
 import imageLogo from '../../assets/logo-login.png'
 import * as message from '../../components/Message/Message'
-
 const SignUpPage = () => {
   const navigate = useNavigate()
 
