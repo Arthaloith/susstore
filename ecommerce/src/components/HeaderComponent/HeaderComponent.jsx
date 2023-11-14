@@ -8,7 +8,8 @@ import {
 } from '@ant-design/icons'
 import ButtonInputSearch from '../ButtonInputSearch/ButtonInputSearch'
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as UserService from '../../services/UserService'
 import { resetUser } from '../../redux/slides/userSlide'
 import Loading from '../LoadingComponent/Loading';
@@ -90,6 +91,5 @@ const HeaderComponent = () => {
     </div>
   )
 }
-
 
 export default HeaderComponent

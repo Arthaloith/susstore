@@ -3,11 +3,10 @@ import NotFoundPage from "../pages/NotFoundPage/NotFoundPage"
 import OrderPage from "../pages/OrderPage/OrderPage"
 import ProductDetailsPage from "../pages/ProductDetailsPage/ProductDetailPage"
 import ProductPage from "../pages/ProductPage/ProductPage"
-import ProfilePage from "../pages/Profile/ProfilePage"
 import SignInPage from "../pages/SignInPage/SignInPage"
 import SignUpPage from "../pages/SignUpPage/SignUpPage"
 import TypeProductPage from "../pages/TypeProductPage/TypeProductPage"
-
+import ProfilePage from "../pages/Profile/ProfilePage"
 export const routes = [
     {
         path: '/',
