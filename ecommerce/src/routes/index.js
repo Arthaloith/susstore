@@ -7,49 +7,58 @@ import SignInPage from "../pages/SignInPage/SignInPage"
 import SignUpPage from "../pages/SignUpPage/SignUpPage"
 import TypeProductPage from "../pages/TypeProductPage/TypeProductPage"
 import ProfilePage from "../pages/Profile/ProfilePage"
+import AdminPage from "../pages/AdminPage/AdminPage"
+
 export const routes = [
     {
-        path: '/',
-        page: HomePage,
-        isShowHeader: true
+      path: '/',
+      page: HomePage,
+      isShowHeader: true,
     },
     {
-        path: '/order',
-        page: OrderPage,
-        isShowHeader: true
+      path: '/order',
+      page: OrderPage,
+      isShowHeader: true,
     },
     {
-        path: '/products',
-        page: ProductPage,
-        isShowHeader: true
+      path: '/products',
+      page: ProductPage,
+      isShowHeader: true,
     },
     {
-        path: '/:type',
-        page: TypeProductPage,
-        isShowHeader: true
+      path: '/:type',
+      page: TypeProductPage,
+      isShowHeader: true,
     },
     {
-        path: '/sign-in',
-        page: SignInPage,
-        isShowHeader: false
+      path: '/sign-in',
+      page: SignInPage,
+      isShowHeader: false,
     },
     {
-        path: '/sign-up',
-        page: SignUpPage,
-        isShowHeader: false
+      path: '/sign-up',
+      page: SignUpPage,
+      isShowHeader: false,
     },
     {
-        path: '/product-details',
-        page: ProductDetailsPage,
-        isShowHeader: true
+      path: '/product-details',
+      page: ProductDetailsPage,
+      isShowHeader: true,
     },
     {
-        path: '/profile-user',
-        page: ProfilePage,
-        isShowHeader: true
+      path: '/profile-user',
+      page: ProfilePage,
+      isShowHeader: true,
     },
     {
-        path: '*',
-        page: NotFoundPage
-    }
-]
+      path: '/system/admin',
+      page: AdminPage,
+      isShowHeader: false,
+      isPrivate: true,
+    },
+    {
+      path: '*',
+      page: NotFoundPage,
+    },
+  ];
+  
