@@ -9,7 +9,7 @@ const createProduct = (newProduct) => {
             })
             if (checkProduct !== null) {
                 resolve({
-                    status: 'OK',
+                    status: 'ERR',
                     message: 'The name of product is already'
                 })
             }
@@ -37,7 +37,7 @@ const updateProduct = (id, data) => {
             })
             if (checkProduct === null) {
                 resolve({
-                    status: 'OK',
+                    status: 'ERR',
                     message: 'The product is not defined'
                 })
             }
@@ -62,12 +62,26 @@ const deleteProduct = (id) => {
             })
             if (checkProduct === null) {
                 resolve({
-                    status: 'OK',
+                    status: 'ERR',
                     message: 'The product is not defined'
                 })
             }
 
             await Product.findByIdAndDelete(id)
+            resolve({
+                status: 'OK',
+                message: 'Delete product success',
+            })
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
+
+const deleteManyProduct = (ids) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            await Product.deleteMany({ _id: ids })
             resolve({
                 status: 'OK',
                 message: 'Delete product success',
@@ -86,7 +100,7 @@ const getDetailsProduct = (id) => {
             })
             if (product === null) {
                 resolve({
-                    status: 'OK',
+                    status: 'ERR',
                     message: 'The product is not defined'
                 })
             }
@@ -105,10 +119,9 @@ const getDetailsProduct = (id) => {
 const getAllProduct = (limit, page, sort, filter) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const totalProduct = await Product.countDocuments()
+            const totalProduct = await Product.count()
             if (filter) {
                 const label = filter[0];
-                console.log(label)
                 const allObjectFilter = await Product.find({ [label]: { '$regex': filter[1] } }).limit(limit).skip(page * limit)
                 resolve({
                     status: 'OK',
@@ -154,5 +167,6 @@ module.exports = {
     updateProduct,
     getDetailsProduct,
     deleteProduct,
-    getAllProduct
+    getAllProduct,
+    deleteManyProduct
 }

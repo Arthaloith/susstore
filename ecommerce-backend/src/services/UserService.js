@@ -127,6 +127,21 @@ const deleteUser = (id) => {
     })
 }
 
+const deleteManyUser = (ids) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+
+            await User.deleteMany({ _id: ids })
+            resolve({
+                status: 'OK',
+                message: 'Delete user success',
+            })
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
+
 const getAllUser = () => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -154,7 +169,6 @@ const getDetailsUser = (id) => {
                     message: 'The user is not defined'
                 })
             }
-
             resolve({
                 status: 'OK',
                 message: 'SUCESS',
@@ -173,4 +187,5 @@ module.exports = {
     deleteUser,
     getAllUser,
     getDetailsUser,
+    deleteManyUser
 }

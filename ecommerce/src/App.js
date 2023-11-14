@@ -14,17 +14,25 @@ function App() {
   const [isLoading, setIsLoading] = useState(true); // Set initial isLoading state to true
   const user = useSelector((state) => state.user);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const { storageData, decoded } = handleDecoded();
-      if (decoded?.id) {
-        await handleGetDetailsUser(decoded?.id, storageData);
-      }
-      setIsLoading(false); // Update isLoading state to false after data fetching and initialization
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const { storageData, decoded } = handleDecoded();
+  //     if (decoded?.id) {
+  //       await handleGetDetailsUser(decoded?.id, storageData);
+  //     }
+  //     setIsLoading(false); // Update isLoading state to false after data fetching and initialization
+  //   };
+  //   fetchData();
+  // }, []);
 
-    fetchData();
-  }, []);
+  useEffect(() => {
+    setIsLoading(true)
+    const { storageData, decoded } = handleDecoded()
+    if (decoded?.id) {
+      handleGetDetailsUser(decoded?.id, storageData)
+    }
+    setIsLoading(false)
+  }, [])
   
   const handleDecoded = () => {
     let storageData = localStorage.getItem('access_token')
