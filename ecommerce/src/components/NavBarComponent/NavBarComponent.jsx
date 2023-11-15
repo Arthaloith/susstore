@@ -1,9 +1,9 @@
+import { Checkbox, Col, Rate, Row } from 'antd'
 import React from 'react'
-import { WrapperContent, WrapperLabelText, WrapperTextPrice, WrapperTextValue } from './style'
-import { Checkbox, Rate } from 'antd'
+import { WrapperContent, WrapperLableText, WrapperTextPrice, WrapperTextValue } from './style'
 
 const NavBarComponent = () => {
-    const onChange = () => {}
+    const onChange = () => { }
     const renderContent = (type, options) => {
         switch (type) {
             case 'text':
@@ -19,15 +19,15 @@ const NavBarComponent = () => {
                             return (
                                 <Checkbox style={{ marginLeft: 0 }} value={option.value}>{option.label}</Checkbox>
                             )
-                        })} 
+                        })}
                     </Checkbox.Group>
                 )
             case 'star':
                 return options.map((option) => {
                     return (
-                        <div style={{ display: 'flex', gap: '6px' }}>
+                        <div style={{ dispaly: 'flex' }}>
                             <Rate style={{ fontSize: '12px' }} disabled defaultValue={option} />
-                            <span> {`from ${option} star(s)`}</span>
+                            <span> {`tu ${option}  sao`}</span>
                         </div>
                     )
                 })
@@ -42,26 +42,14 @@ const NavBarComponent = () => {
         }
     }
 
-  return (
-    <div>
-        <WrapperLabelText>Label</WrapperLabelText>
-        <WrapperContent>
-            {renderContent('text', ['TV', 'Fridge', 'Washing machine'])}
-        </WrapperContent>
-        {/* <WrapperContent>
-            {renderContent('checkbox', [
-                {value: 'A',label: 'A'},
-                {value: 'B',label: 'B'},
-            ])}
-        </WrapperContent>
-        <WrapperContent>
-            {renderContent('star', [3, 4, 5])}
-        </WrapperContent>
-        <WrapperContent>
-            {renderContent('price', ['under 40', 'above 10.000'])}
-        </WrapperContent> */}
-    </div>
-  )
+    return (
+        <div>
+            <WrapperLableText>Lable</WrapperLableText>
+            <WrapperContent>
+                {renderContent('text', ['Tu lanh', 'TV', 'MAYGIAT'])}
+            </WrapperContent>
+        </div>
+    )
 }
 
 export default NavBarComponent

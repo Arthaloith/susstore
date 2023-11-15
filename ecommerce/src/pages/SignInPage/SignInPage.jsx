@@ -1,24 +1,26 @@
 import React, { useEffect } from 'react'
-import { WrapperContainerLeft, WrapperContainerRight, WrapperTextLight } from './style'
-import InputForm from '../../components/InputForm/InputForm'
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent'
-import { EyeFilled, EyeInvisibleFilled } from '@ant-design/icons'
-import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
-import { useMutationHooks } from '../../hooks/useMutationHook'
-import * as UserService from '../../services/UserService'
-import Loading from '../../components/LoadingComponent/Loading'
+import InputForm from '../../components/InputForm/InputForm'
+import { WrapperContainerLeft, WrapperContainerRight, WrapperTextLight } from './style'
+import imageLogo from '../../assets/images/logo-login.png'
 import { Image } from 'antd'
-import imageLogo from '../../assets/logo-login.png'
-import { useDispatch } from 'react-redux'
+import { EyeFilled, EyeInvisibleFilled } from '@ant-design/icons'
+import { useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import * as UserService from '../../services/UserService'
+import { useMutationHooks } from '../../hooks/useMutationHook'
+import Loading from '../../components/LoadingComponent/Loading'
+import { jwtDecode } from "jwt-decode";
+import { useDispatch, useSelector } from 'react-redux'
 import { updateUser } from '../../redux/slides/userSlide'
-import {jwtDecode} from 'jwt-decode'
 
 const SignInPage = () => {
   const [isShowPassword, setIsShowPassword] = useState(false)
+  const location = useLocation()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user)
 
   const navigate = useNavigate()
 
@@ -29,8 +31,13 @@ const SignInPage = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate('/')
+      if (location?.state) {
+        navigate(location?.state)
+      } else {
+        navigate('/')
+      }
       localStorage.setItem('access_token', JSON.stringify(data?.access_token))
+      localStorage.setItem('refresh_token', JSON.stringify(data?.refresh_token))
       if (data?.access_token) {
         const decoded = jwtDecode(data?.access_token)
         if (decoded?.id) {
@@ -41,11 +48,12 @@ const SignInPage = () => {
   }, [isSuccess])
 
   const handleGetDetailsUser = async (id, token) => {
+    const storage = localStorage.getItem('refresh_token')
+    const refreshToken = JSON.parse(storage)
     const res = await UserService.getDetailsUser(id, token)
-    dispatch(updateUser({ ...res?.data, access_token: token }))
+    dispatch(updateUser({ ...res?.data, access_token: token, refreshToken }))
   }
 
-  console.log('mutation', mutation)
 
   const handleNavigateSignUp = () => {
     navigate('/sign-up')
@@ -60,6 +68,7 @@ const SignInPage = () => {
   }
 
   const handleSignIn = () => {
+    console.log('logingloin')
     mutation.mutate({
       email,
       password
@@ -111,7 +120,7 @@ const SignInPage = () => {
                 borderRadius: '4px',
                 margin: '26px 0 10px'
               }}
-              textButton={'Đăng nhập'}
+              textbutton={'Đăng nhập'}
               styleTextButton={{ color: '#fff', fontSize: '15px', fontWeight: '700' }}
             ></ButtonComponent>
           </Loading>

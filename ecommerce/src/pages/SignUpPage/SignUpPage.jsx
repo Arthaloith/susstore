@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react'
-import { WrapperContainerLeft, WrapperContainerRight, WrapperTextLight } from './style'
-import InputForm from '../../components/InputForm/InputForm'
+import React from 'react'
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent'
-import { EyeFilled, EyeInvisibleFilled } from '@ant-design/icons'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useMutationHooks } from '../../hooks/useMutationHook'
-import * as UserService from '../../services/UserService'
-import Loading from '../../components/LoadingComponent/Loading'
+import InputForm from '../../components/InputForm/InputForm'
+import { WrapperContainerLeft, WrapperContainerRight, WrapperTextLight } from './style'
+import imageLogo from '../../assets/images/logo-login.png'
 import { Image } from 'antd'
-import imageLogo from '../../assets/logo-login.png'
+import { useState } from 'react'
+import { EyeFilled, EyeInvisibleFilled } from '@ant-design/icons'
+import { useNavigate } from 'react-router-dom'
+import * as UserService from '../../services/UserService'
+import { useMutationHooks } from '../../hooks/useMutationHook'
+import Loading from '../../components/LoadingComponent/Loading'
 import * as message from '../../components/Message/Message'
+import { useEffect } from 'react'
+
 const SignUpPage = () => {
   const navigate = useNavigate()
 
@@ -117,7 +119,7 @@ const SignUpPage = () => {
                 borderRadius: '4px',
                 margin: '26px 0 10px'
               }}
-              textButton={'Đăng ký'}
+              textbutton={'Đăng ký'}
               styleTextButton={{ color: '#fff', fontSize: '15px', fontWeight: '700' }}
             ></ButtonComponent>
           </Loading>
