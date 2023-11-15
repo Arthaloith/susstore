@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from 'react'
-import { Badge, Col, Popover } from 'antd';
-import { WrapperHeader, WrapperTextHeader, WrapperHeaderAccount, WrapperTextHeaderSmall, WrapperContentPopup } from './style'
+import { Badge, Col, Popover } from 'antd'
+import React from 'react'
+import { WrapperContentPopup, WrapperHeader, WrapperHeaderAccout, WrapperTextHeader, WrapperTextHeaderSmall } from './style'
 import {
   UserOutlined,
   CaretDownOutlined,
   ShoppingCartOutlined
-} from '@ant-design/icons'
-import ButtonInputSearch from '../ButtonInputSearch/ButtonInputSearch'
+} from '@ant-design/icons';
+import ButttonInputSearch from '../ButtonInputSearch/ButtonInputSearch';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as UserService from '../../services/UserService'
 import { resetUser } from '../../redux/slides/userSlide'
+import { useState } from 'react';
 import Loading from '../LoadingComponent/Loading';
+import { useEffect } from 'react';
+import { searchProduct } from '../../redux/slides/productSlide';
+
 
 const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
   const navigate = useNavigate()
@@ -20,6 +23,7 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
   const dispatch = useDispatch()
   const [userName, setUserName] = useState('')
   const [userAvatar, setUserAvatar] = useState('')
+  const [search, setSearch] = useState('')
   const [loading, setLoading] = useState(false)
   const handleNavigateLogin = () => {
     navigate('/sign-in')
@@ -50,6 +54,11 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
     </div>
   );
 
+  const onSearch = (e) => {
+    setSearch(e.target.value)
+    dispatch(searchProduct(e.target.value))
+  }
+
   return (
     <div style={{ width: '100%', background: 'rgb(26, 148, 255)', display: 'flex', justifyContent: 'center' }}>
       <WrapperHeader style={{ justifyContent: isHiddenSearch && isHiddenSearch ? 'space-between' : 'unset' }}>
@@ -58,18 +67,18 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
         </Col>
         {!isHiddenSearch && (
           <Col span={13}>
-            <ButtonInputSearch
+            <ButttonInputSearch
               size="large"
               bordered={false}
               textButton="Tìm kiếm"
               placeholder="input search text"
-            // onSearch={onSearch}
+              onChange={onSearch}
             />
           </Col>
         )}
         <Col span={6} style={{ display: 'flex', gap: '54px', alignItems: 'center' }}>
           <Loading isLoading={loading}>
-            <WrapperHeaderAccount>
+            <WrapperHeaderAccout>
               {userAvatar ? (
                 <img src={userAvatar} alt="avatar" style={{
                   height: '30px',
@@ -95,7 +104,7 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
                   </div>
                 </div>
               )}
-            </WrapperHeaderAccount>
+            </WrapperHeaderAccout>
           </Loading>
           {!isHiddenCart && (
             <div>
