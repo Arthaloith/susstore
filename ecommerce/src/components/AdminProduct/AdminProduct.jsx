@@ -48,7 +48,7 @@ const AdminProduct = () => {
         rating,
         image,
         type,
-        countInStock,discount } = data
+        countInStock, discount } = data
       const res = ProductService.createProduct({
         name,
         price,
@@ -121,9 +121,9 @@ const AdminProduct = () => {
   }
 
   useEffect(() => {
-    if(!isModalOpen) {
+    if (!isModalOpen) {
       form.setFieldsValue(stateProductDetails)
-    }else {
+    } else {
       form.setFieldsValue(inittial())
     }
   }, [form, stateProductDetails, isModalOpen])
@@ -457,15 +457,17 @@ const AdminProduct = () => {
   }
 
   const handleChangeSelect = (value) => {
-      setStateProduct({
-        ...stateProduct,
-        type: value
-      })
+    setStateProduct({
+      ...stateProduct,
+      type: value
+    })
   }
 
   return (
     <div>
-      <WrapperHeader>Quản lý sản phẩm</WrapperHeader>
+      <div style={{ backgroundColor: 'lightblue' }}>
+        <WrapperHeader>Product Management</WrapperHeader>
+      </div>
       <div style={{ marginTop: '10px' }}>
         <Button style={{ height: '150px', width: '150px', borderRadius: '6px', borderStyle: 'dashed' }} onClick={() => setIsModalOpen(true)}><PlusOutlined style={{ fontSize: '60px' }} /></Button>
       </div>
@@ -478,7 +480,7 @@ const AdminProduct = () => {
           };
         }} />
       </div>
-      <ModalComponent forceRender title="Tạo sản phẩm" open={isModalOpen} onCancel={handleCancel} footer={null}>
+      <ModalComponent forceRender title="Create Product" open={isModalOpen} onCancel={handleCancel} footer={null}>
         <Loading isLoading={isLoading}>
 
           <Form
@@ -509,7 +511,7 @@ const AdminProduct = () => {
                 value={stateProduct.type}
                 onChange={handleChangeSelect}
                 options={renderOptions(typeProduct?.data?.data)}
-                />
+              />
             </Form.Item>
             {stateProduct.type === 'add_type' && (
               <Form.Item

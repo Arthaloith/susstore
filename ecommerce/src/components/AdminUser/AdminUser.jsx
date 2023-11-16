@@ -333,7 +333,9 @@ const AdminUser = () => {
 
   return (
     <div>
-      <WrapperHeader>Quản lý người dùng</WrapperHeader>
+      <div style={{ backgroundColor: 'lightblue' }}>
+        <WrapperHeader>User Management</WrapperHeader>
+      </div>
       <div style={{ marginTop: '20px' }}>
         <TableComponent handleDelteMany={handleDelteManyUsers} columns={columns} isLoading={isFetchingUser} data={dataTable} onRow={(record, rowIndex) => {
           return {
