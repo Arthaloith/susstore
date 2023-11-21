@@ -44,9 +44,9 @@ const NavBarComponent = () => {
 
     return (
         <div>
-            <WrapperLableText>Lable</WrapperLableText>
+            <WrapperLableText>Categories</WrapperLableText>
             <WrapperContent>
-                {renderContent('text', ['Tu lanh', 'TV', 'MAYGIAT'])}
+                {renderContent('text', ['Refridgerator', 'TV', 'Washing machine'])}
             </WrapperContent>
         </div>
     )

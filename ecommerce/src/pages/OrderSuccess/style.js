@@ -1,5 +1,5 @@
 import { Radio } from "antd";
-import styled  from "styled-components";
+import styled from "styled-components";
 
 export const WrapperStyleHeader = styled.div`
   background: rgb(255, 255, 255);
@@ -10,7 +10,7 @@ export const WrapperStyleHeader = styled.div`
   span {
     color: rgb(36, 36, 36);
     font-weight: 400;
-    font-size: 13px;
+    font-size: 20px;
   }
 `
 
@@ -46,7 +46,7 @@ export const WrapperPriceDiscount = styled.span`
   text-decoration: line-through;
   margin-left: 4px;
 `
-export const WrapperCountOrder  = styled.div`
+export const WrapperCountOrder = styled.div`
   display: flex;
   align-items: center;
   width: 84px;

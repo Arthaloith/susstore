@@ -4,7 +4,6 @@ import TypeProduct from '../../components/TypeProduct/TypeProduct'
 import { WrapperButtonMore, WrapperProducts, WrapperTypeProduct } from './style'
 import slider1 from '../../assets/images/Prom1.jpg'
 import slider2 from '../../assets/images/Prom2.jpg'
-import slider3 from '../../assets/images/slider3.webp'
 import CardComponent from '../../components/CardComponent/CardComponent'
 import { useQuery } from '@tanstack/react-query'
 import * as ProductService from '../../services/ProductService'
@@ -58,7 +57,7 @@ const HomePage = () => {
       </div>
       <div className="body" style={{ width: '100%', backgroundColor: '#efefef' }}>
         <div id="container" style={{ height: '1000px', width: '1270px', margin: '0 auto' }}>
-          <SliderComponent arrImages={[slider1, slider2, slider3]} />
+          <SliderComponent arrImages={[slider1, slider2]} />
           <WrapperProducts>
             {products?.data?.map((product) => {
               return (
@@ -80,7 +79,7 @@ const HomePage = () => {
           </WrapperProducts>
           <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
             <WrapperButtonMore
-              textbutton={isPreviousData ? 'Load more' : 'Xem thêm'}
+              textbutton={isPreviousData ? 'Load more' : 'Load more'}
               type="outline"
               styleButton={{
                 border: `1px solid ${products?.total === products?.data?.length ? '#f5f5f5' : '#9255FD'}`,

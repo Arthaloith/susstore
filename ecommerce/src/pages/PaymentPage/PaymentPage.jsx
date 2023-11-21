@@ -272,7 +272,7 @@ const PaymentPage = () => {
                   <div>
                     <span> Address: </span>
                     <span style={{ fontWeight: 'bold' }}>{`${user?.address} ${user?.city}`} </span>
-                    <span onClick={handleChangeAddress} style={{ color: '#9255FD', cursor: 'pointer' }}>Thay đổi</span>
+                    <span onClick={handleChangeAddress} style={{ color: '#9255FD', cursor: 'pointer' }}>Change</span>
                   </div>
                 </WrapperInfo>
                 <WrapperInfo>
@@ -326,7 +326,7 @@ const PaymentPage = () => {
             </WrapperRight>
           </div>
         </div>
-        <ModalComponent title="Cập nhật thông tin giao hàng" open={isOpenModalUpdateInfo} onCancel={handleCancleUpdate} onOk={handleUpdateInforUser}>
+        <ModalComponent title="Update Address" open={isOpenModalUpdateInfo} onCancel={handleCancleUpdate} onOk={handleUpdateInforUser}>
           <Loading isLoading={isLoading}>
             <Form
               name="basic"

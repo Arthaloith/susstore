@@ -8,7 +8,9 @@ const ProductDetailsPage = () => {
   return (
     <div style={{ width: '100%', background: '#efefef', height: '100%' }}>
       <div style={{ width: '1270px', height: '100%', margin: '0 auto' }} >
-        <h5><span style={{ cursor: 'pointer', fontWeight: 'bold' }} onClick={() => { navigate('/') }}>Trang chủ</span> - Chi tiết sản phẩm</h5>
+        <div style={{ marginTop: '20px', backgroundColor: 'white', padding: '20px', textAlign: 'center' }}>
+          <h5><span style={{ cursor: 'pointer', fontWeight: 'bold' }} onClick={() => { navigate('/') }}> HomePage</span> - Product Details</h5>
+        </div>
         <ProductDetailsComponent idProduct={id} />
       </div>
     </div>

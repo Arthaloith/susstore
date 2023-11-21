@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Loading from '../../components/LoadingComponent/Loading';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import * as OrderService from '../../services/OrderService'
@@ -7,7 +7,6 @@ import { convertPrice } from '../../utils';
 import { WrapperItemOrder, WrapperListOrder, WrapperHeaderItem, WrapperFooterItem, WrapperContainer, WrapperStatus } from './style';
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useMutationHooks } from '../../hooks/useMutationHook';
 import * as message from '../../components/Message/Message'
 
 const MyOrderPage = () => {
@@ -22,9 +21,13 @@ const MyOrderPage = () => {
 
   const user = useSelector((state) => state.user);
 
-  const queryOrder = useQuery(['orders'], fetchMyOrder, {
-    enabled: state?.id && state?.token,
-  });
+  const queryOrder = useQuery({
+    queryKey: ['order', state?.id, state?.token],
+    queryFn: fetchMyOrder,
+    retry: 3,
+    retryDelay: 1000,
+    keepPreviousData: true,
+  })
   const { isLoading, data } = queryOrder;
 
   const handleDetailsOrder = (id) => {

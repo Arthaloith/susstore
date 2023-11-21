@@ -21,7 +21,7 @@ const OrderSucess = () => {
             <WrapperContainer>
               <WrapperInfo>
                 <div>
-                  <Lable>Delivery method</Lable>
+                  <Lable style={{ fontSize: '20px' }}>Delivery method</Lable>
                   <WrapperValue>
                     <span style={{ color: '#ea8500', fontWeight: 'bold' }}>{orderContant.delivery[state?.delivery]}</span> Amogus Sus Deliveries
                   </WrapperValue>
@@ -29,7 +29,7 @@ const OrderSucess = () => {
               </WrapperInfo>
               <WrapperInfo>
                 <div>
-                  <Lable>Payment method</Lable>
+                  <Lable style={{ fontSize: '20px' }}>Payment method</Lable>
 
                   <WrapperValue>
                     {orderContant.payment[state?.payment]}
